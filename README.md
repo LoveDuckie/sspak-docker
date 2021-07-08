@@ -29,6 +29,10 @@ Backups can be manually captured when there is a running instance of SilverStrip
 
 This Docker image supports the ability to schedule backups using CRON jobs that are configured inside the container. The container makes use of Alpine Linux.
 
+## Special Thanks
+
+[Thanks to this particular GitHub repository for the inspiration.](https://github.com/databacker/mysql-backup)
+
 ## Links
 
 Find below some relevant links.
