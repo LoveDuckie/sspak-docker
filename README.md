@@ -20,10 +20,20 @@ A few explanations on how to use this.
 ### Restoring Backups
 
 Backups can be restored manually to either a remote or the default/local Docker context.
+```shell
+silverstripe-backup.sh restore
+```
+```bash
+export REMOTE_CONTEXT_NAME=remote-context
+silverstripe-backup.sh restore remote
+```
 
 ### Capturing Backups
 
 Backups can be manually captured when there is a running instance of SilverStripe, and the supporting SQL database server.
+```bash
+silverstripe-backup.sh backup
+```
 
 ### Scheduled Backups
 
