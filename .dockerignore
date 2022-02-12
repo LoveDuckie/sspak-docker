@@ -1,0 +1,26 @@
+*
+!*.sh
+!backups
+!containers/**/configuration
+!containers/*/pages
+!containers/*/build
+!containers/nginx/pages
+!containers/php
+!containers/silverstripebackup
+!containers/databasebackup
+!source/sites
+data
+mount
+mnt
+
+# installed composer packages
+source/sites/*/vendor
+source/sites/**/vendor
+source/sites/*/public/resources/*
+source/sites/**/public/resources/*
+
+# generated assets
+source/sites/*/public/assets/**/*_Fill*
+source/sites/*/public/assets/**/*_Fit*
+source/sites/*/public/assets/**/*_Scale*
+source/sites/*/silverstripe-cache

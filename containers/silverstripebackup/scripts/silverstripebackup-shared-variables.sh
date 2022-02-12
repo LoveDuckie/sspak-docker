@@ -1,0 +1,42 @@
+#!/bin/bash
+<<EOF
+
+    SilverStripe Backup \ Shared \ Variables
+
+    A collection of shared variables that are used around the container.
+    
+EOF
+[ -n "${SILVERSTRIPEBACKUP_SHARED_VARIABLES}" ] && return; SILVERSTRIPEBACKUP_SHARED_VARIABLES=0;
+
+DEFAULT_DOMAIN_NAME="lucshelton.com"
+export TARGET_HOSTNAME=${TARGET_HOSTNAME:-$(echo $HOSTNAME | sed -E 's/([^a-zA-Z0-9\-\_]+)/_/g')}
+
+export SS_DATABASE_SERVER=${SS_DATABASE_SERVER:-"portfolio-mariadb"}
+export SS_DATABASE_USERNAME=${SS_DATABASE_USERNAME:-"lshelton"}
+export SS_DATABASE_PASSWORD=${SS_DATABASE_PASSWORD:-}
+export SS_DATABASE_NAME=${SS_DATABASE_NAME:-"portfolio_db"}
+export SS_DATABASE_PORT=${SS_DATABASE_PORT:-"3306"}
+
+export SSPAK_COMMAND=${SSPAK_COMMAND:-backup}
+
+export BACKUPS_PATH=${BACKUPS_PATH:-"/mnt/backups"}
+export BACKUPS_PATH_HOST=${BACKUPS_PATH_HOST:-"$BACKUPS_PATH/$TARGET_HOSTNAME"}
+export BACKUP_CRON_SCHEDULE=${BACKUP_CRON_SCHEDULE:-"0 0 * * *"}
+
+export BACKUP_FILENAME_PREFIX=${BACKUP_FILENAME_PREFIX:-"silverstripebackup-"}
+export BACKUP_FILENAME=${BACKUP_FILENAME:-"${BACKUP_FILENAME_PREFIX}$(date +%Y-%m-%d_%H-%M-%S)"}
+export RESTORE_FROM_BACKUP_FILEPATH=${RESTORE_FROM_BACKUP_FILEPATH:-"$BACKUPS_PATH_HOST/$BACKUP_FILENAME-latest.tgz"}
+
+export SITES_ROOT_PATH=${SITES_ROOT_PATH:-"/var/www/sites"}
+export SITES_TARGETS=${SITE_TARGET_DOMAINS:-($DEFAULT_DOMAIN_NAME)}
+
+export SITE_TARGET=${SITE_TARGET:-$DEFAULT_DOMAIN_NAME}
+export SITE_TARGET_BACKUPS_PATH=${SITE_TARGET_BACKUPS_PATH:-$BACKUPS_PATH_HOST/$SITE_TARGET}
+
+export DELETE_EXCESS_BACKUPS=${DELETE_EXCESS_BACKUPS:-1}
+export UPDATE_LATEST=${UPDATE_LATEST:-1}
+export MAX_BACKUPS=5
+
+export CRONJOB_FILEPATH=/scripts/silverstripebackup-cron.sh
+
+export SSPAK_TOOLS_REQUIRED=(php mysql mysqldump tar gzip sudo)

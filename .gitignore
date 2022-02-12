@@ -1,0 +1,5 @@
+**/*.yml
+**/*.yaml
+*.env*
+!**/docker-compose.example.yaml
+backups/

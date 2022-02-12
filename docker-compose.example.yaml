@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  silverstripebackup:
+    container_name: '${SERVICE_NAME}-silverstripebackup'
+    image: ${REMOTE_REGISTRY_HOST}portfolio/silverstripebackup:${BUILD_VERSION}
+    build: 
+      context: '${BUILD_ROOT}' 
+      dockerfile: '${BUILD_ROOT}/containers/silverstripebackup/build/Dockerfile'
+      target: portfolio-silverstripebackup-version
+      args:
+        CUSTOM_BUILD_VERSION: '${BUILD_VERSION}'
+    volumes:  
+      - ${PROJECT_ROOT}/backups/silverstripe:/mnt/backups:rw
+    environment:
+      SS_DATABASE_SERVER: portfolio-mariadb
+      SS_DATABASE_USERNAME: '${DATABASE_USER}'
+      SS_DATABASE_PASSWORD: '${DATABASE_PASSWORD}'
+      SS_DATABASE_NAME: portfolio_db
+      SS_DATABASE_PORT: ${DATABASE_PORT}
+      SITE_TARGET: lucshelton.com
+      SITE_TARGET_DOMAINS: ${PRODUCTION_WEBSITE_DOMAIN_NAME}
+      TARGET_HOSTNAME: ${HOSTNAME}
+      SSPAK_COMMAND: ${SSPAK_COMMAND}
+      BACKUPS_PATH: '/mnt/backups'
+    # command: ['-c', 'test']
