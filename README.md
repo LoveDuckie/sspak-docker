@@ -1,4 +1,4 @@
-# Docker SilverStripe Backup
+# SilverStripe Docker Backup
 
 A Docker image for capturing or restoring backups of SilverStripe installations using SSPAK.
 
