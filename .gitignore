@@ -4,3 +4,4 @@
 !**/docker-compose.example.yaml
 backups/
 !.gitignore
+!.env.example
