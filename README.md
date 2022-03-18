@@ -2,7 +2,7 @@
 
 A Docker image for capturing or restoring backups of SilverStripe installations using SSPAK.
 
-[Read more about this repository here.](https://lucshelton.com/blog/backing-up-silverstripe-in-docker)
+[https://lucshelton.com/projects/personal/silverstripe-docker-backup/](https://lucshelton.com/projects/personal/silverstripe-docker-backup/)
 
 ## Purpose
 
