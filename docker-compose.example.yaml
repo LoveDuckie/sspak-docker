@@ -13,12 +13,13 @@ services:
     volumes:  
       - ${PROJECT_ROOT}/backups/silverstripe:/mnt/backups:rw
     environment:
-      SS_DATABASE_SERVER: portfolio-mariadb
+      # SS_DATABASE_SERVER: portfolio-database
+      SS_DATABASE_SERVER: portfolio-database
       SS_DATABASE_USERNAME: '${DATABASE_USER}'
       SS_DATABASE_PASSWORD: '${DATABASE_PASSWORD}'
       SS_DATABASE_NAME: portfolio_db
       SS_DATABASE_PORT: ${DATABASE_PORT}
-      SITE_TARGET: lucshelton.com
+      SITE_DOMAIN_NAME: lucshelton.com
       SITE_TARGET_DOMAINS: ${PRODUCTION_WEBSITE_DOMAIN_NAME}
       TARGET_HOSTNAME: ${HOSTNAME}
       SSPAK_COMMAND: ${SSPAK_COMMAND}

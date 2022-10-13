@@ -12,10 +12,10 @@ LABEL maintainer="Luc \"LoveDuckie\" Shelton <lucshelton@gmail.com>" \
       org.label-schema.version=${CUSTOM_BUILD_VERSION}
 
 ARG CUSTOM_BUILD_VERSION development
-RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories
+# RUN echo https://dl-cdn.alpinelinux.org/alpine/edge/community/ >>/etc/apk/repositories
 
 #
-#   INSTALL: ALPINE LINUX PACKAGES
+#   INSTALL: ALPINE PACKAGES
 #
 RUN apk update
 
@@ -42,18 +42,18 @@ RUN chmod +x /usr/local/bin/composer
 RUN curl -sS https://silverstripe.github.io/sspak/install | php -- /usr/local/bin
 
 # Images
-RUN docker-php-ext-configure gd
-RUN docker-php-ext-install gd
+RUN docker-php-ext-configure gd && docker-php-ext-install gd
 
 # i18n
-RUN docker-php-ext-configure intl 
-RUN docker-php-ext-install intl
+RUN docker-php-ext-configure intl && docker-php-ext-install intl
 
 RUN mkdir -p /scripts
 
 # BUILD VERSION: DEVELOPMENT
 
 FROM php-builder as portfolio-silverstripebackup-development
+
+RUN echo "Nothing"
 
 # BUILD VERSION: PRODUCTION
 
@@ -66,4 +66,4 @@ COPY ./containers/silverstripebackup/scripts/*.sh /scripts
 RUN mkdir -p /var/log/backups
 RUN chmod -R ug+rwx /scripts /var/log/backups
 
-ENTRYPOINT ["/scripts/silverstripebackup-entrypoint.sh"]
+ENTRYPOINT ["/scripts/silverstripe-backup.sh"]
