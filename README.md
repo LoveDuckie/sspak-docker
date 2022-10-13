@@ -1,6 +1,6 @@
-# Docker SilverStripe Backup
+# SSPAK Docker
 
-A Docker image for capturing or restoring backups of SilverStripe installations using SSPAK.
+A Docker container image for capturing or restoring backups of Silverstripe installations using SSPAK.
 
 [Read more about this repository here.](https://lucshelton.com/blog/backing-up-silverstripe-in-docker)
 
@@ -20,9 +20,11 @@ A few explanations on how to use this.
 ### Restoring Backups
 
 Backups can be restored manually to either a remote or the default/local Docker context.
+
 ```shell
 silverstripe-backup.sh restore
 ```
+
 ```bash
 export REMOTE_CONTEXT_NAME=remote-context
 silverstripe-backup.sh restore remote
@@ -31,6 +33,7 @@ silverstripe-backup.sh restore remote
 ### Capturing Backups
 
 Backups can be manually captured when there is a running instance of SilverStripe, and the supporting SQL database server.
+
 ```bash
 silverstripe-backup.sh backup
 ```
@@ -48,8 +51,8 @@ This Docker image supports the ability to schedule backups using CRON jobs that 
 Find below some relevant links.
 
 - **SSPAK**
-  - The official repository for the tool that this Docker image uses. 
+  - The official repository for the tool that this Docker image uses.
   - [GitHub Repository](https://github.com/silverstripe/sspak)
 - **Blog Post**
   - An article I wrote explaining what this Docker image does, and how to use it.
-  - [Docker SilverStripe Backup](https://github.com/LoveDuckie/docker-silverstripe-backup) 
+  - [Docker SilverStripe Backup](https://github.com/LoveDuckie/docker-silverstripe-backup)

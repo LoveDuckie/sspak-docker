@@ -8,7 +8,7 @@ LABEL maintainer="Luc \"LoveDuckie\" Shelton <lucshelton@gmail.com>" \
       org.label-schema.build-date=$CUSTOM_BUILD_DATE \ 
       org.label-schema.name="loveduckie/silverstripebackup" \
       org.label-schema.url="https://www.lucshelton.com" \
-      org.label-schema.description="Dedicated container support for SSPAK" \
+      org.label-schema.description="Docker container for SSPAK tool" \
       org.label-schema.version=${CUSTOM_BUILD_VERSION}
 
 ARG CUSTOM_BUILD_VERSION development
@@ -66,4 +66,4 @@ COPY ./containers/silverstripebackup/scripts/*.sh /scripts
 RUN mkdir -p /var/log/backups
 RUN chmod -R ug+rwx /scripts /var/log/backups
 
-ENTRYPOINT ["/scripts/silverstripe-backup.sh"]
+ENTRYPOINT ["/scripts/silverstripe-entrypoint.sh"]
