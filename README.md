@@ -1,4 +1,4 @@
-# SSPAK Docker
+# SSPak Docker
 
 A Docker container image for capturing or restoring backups of Silverstripe installations using SSPAK.
 
@@ -22,12 +22,13 @@ A few explanations on how to use this.
 Backups can be restored manually to either a remote or the default/local Docker context.
 
 ```shell
-silverstripe-backup.sh restore
+#!/bin/bash
+sspak-docker.sh -o restore
 ```
 
 ```bash
-export REMOTE_CONTEXT_NAME=remote-context
-silverstripe-backup.sh restore remote
+#!/bin/bash
+sspak-docker.sh -o restore
 ```
 
 ### Capturing Backups
@@ -35,7 +36,7 @@ silverstripe-backup.sh restore remote
 Backups can be manually captured when there is a running instance of SilverStripe, and the supporting SQL database server.
 
 ```bash
-silverstripe-backup.sh backup
+sspak-docker.sh -o backup
 ```
 
 ### Scheduled Backups

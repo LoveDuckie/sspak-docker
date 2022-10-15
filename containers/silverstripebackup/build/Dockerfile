@@ -24,11 +24,12 @@ ENV TZ=Europe/London
 RUN cp /usr/share/zoneinfo/$TZ /etc/localtime
 
 RUN apk add --no-cache --update 'mariadb-client>10.3.15' \
-    mariadb-connector-c bash shadow nano sudo openssl freetype-dev libjpeg-turbo-dev libpng-dev \
+    git openssh mariadb-connector-c bash shadow openssl freetype-dev libjpeg-turbo-dev libpng-dev \
     icu icu-libs icu-dev \
     && rm -rf /var/cache/apk/*
 
-RUN echo "$(whoami) ALL=(ALL:ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/$(whoami)
+RUN mkdir -p /etc/sudoers.d/ && touch /etc/sudoers.d/$(whoami)
+RUN echo "$(whoami) ALL=(ALL:ALL) NOPASSWD:ALL" | tee -a /etc/sudoers.d/$(whoami)
     
 #
 #   INSTALL: COMPOSER
@@ -39,7 +40,14 @@ RUN chmod +x /usr/local/bin/composer
 #
 #   INSTALL: SSPAK
 #
-RUN curl -sS https://silverstripe.github.io/sspak/install | php -- /usr/local/bin
+# RUN curl -sS https://silverstripe.github.io/sspak/install | php -- /usr/local/bin
+RUN mkdir -p ~/.ssh/ && touch ~/.ssh/known_hosts && ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+RUN ssh-keygen -o -t rsa -N '' -f ~/.ssh/id_rsa -C "ssh@github.com"
+RUN mkdir -p /sspak
+RUN eval `ssh-agent` && ssh-add && git clone https://github.com/silverstripe/sspak.git /sspak
+RUN cd /sspak && git checkout 1d1ffff9af48b4ebd6d133830c325244e201695d
+RUN chmod ug+rwx /sspak
+RUN cd /sspak && cat bin/install | php -- /usr/local/bin
 
 # Images
 RUN docker-php-ext-configure gd && docker-php-ext-install gd
@@ -53,7 +61,7 @@ RUN mkdir -p /scripts
 
 FROM php-builder as portfolio-silverstripebackup-development
 
-RUN echo "Nothing"
+RUN apk add nano sudo
 
 # BUILD VERSION: PRODUCTION
 
@@ -66,4 +74,4 @@ COPY ./containers/silverstripebackup/scripts/*.sh /scripts
 RUN mkdir -p /var/log/backups
 RUN chmod -R ug+rwx /scripts /var/log/backups
 
-ENTRYPOINT ["/scripts/silverstripe-entrypoint.sh"]
+ENTRYPOINT ["/scripts/silverstripebackup-entrypoint.sh"]

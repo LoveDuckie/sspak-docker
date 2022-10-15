@@ -18,6 +18,17 @@ unset -f write_error
 unset -f write_debug
 unset -f write_warning
 unset -f write_critical
+unset -f write_response
+
+write_response() {
+    if [ $? -ne 0 ]; then
+        write_error "error" "$2"
+        return 1
+    fi
+    
+    write_success "success" "$2"
+    return 0
+}
 
 write_info() {
     MSG=$2
@@ -49,7 +60,7 @@ write_warning() {
     return 0
 }
 
-
+export -f write_response
 export -f write_info
 export -f write_warning
 export -f write_critical

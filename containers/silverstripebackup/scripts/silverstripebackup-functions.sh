@@ -144,6 +144,17 @@ check_installed_tools() {
     return 0
 }
 
+check_silverstripe_variables() {
+    for silverstripe_variable in ${SILVERSTRIPE_VARS[@]}; do
+        if [ -z `echo \\$$var_name` ]; then
+            write_error "silverstripebackup-functions" "\"$silverstripe_variable\" is not defined"
+            exit 1
+        fi
+    done
+
+    return 0
+}
+
 update_latest_backup() {
     local LATEST_BACKUP_FOUND=''
 

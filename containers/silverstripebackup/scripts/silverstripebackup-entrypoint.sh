@@ -7,7 +7,7 @@
 
 EOF
 export CURRENT_SCRIPT_DIRECTORY=$(dirname $(realpath $0))
-. "$CURRENT_SCRIPT_DIRECTORY/silverstripebackup-logging.sh"
+. "$CURRENT_SCRIPT_DIRECTORY/silverstripebackup-functions-logging.sh"
 
 usage() {
     write_info "silverstripebackup" "usage - silverstripebackup"
@@ -15,18 +15,8 @@ usage() {
     exit 1
 }
 
-while getopts ":c:t:h:b:r:eh?" opt; do
-    case $opt in
-        t)
-            export SITE_DOMAIN_NAME=$OPTARG
-            write_info "silverstripebackup" "site domain name: \"$SITE_DOMAIN_NAME\""
-        ;;
-        
-        r)
-            export SITES_PATH=$OPTARG
-            write_info "silverstripebackup" "sites path: \"$SITES_PATH\""
-        ;;
-        
+while getopts ":c:h:b:eh?" opt; do
+    case $opt in        
         c)
             export SSPAK_COMMAND=$OPTARG
             write_info "silverstripebackup" "command: \"$SSPAK_COMMAND\""
@@ -91,6 +81,11 @@ if ! check_installed_tools; then
     exit 3
 fi
 
+if ! check_silverstripe_variables; then
+	write_error "silverstripebackup-entrypoint" "silverstripe variables not defined"
+	exit -1
+fi
+
 if ! is_sspak_installed; then
     write_error "silverstripebackup" "unable to find sspak cli tool."
     exit 4
@@ -131,6 +126,8 @@ if [ ! -d "$HOST_BACKUPS_PATH" ]; then
         exit 10
     fi
 fi
+
+exit 0
 
 # --------------------------------------------------------------
 
