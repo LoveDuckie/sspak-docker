@@ -17,6 +17,11 @@ Conveniently capture and restore backups of a [SilverStripe](https://silverstrip
 
 A few explanations on how to use this.
 
+### Configuration
+
+- `BACKUPS_PATH`
+  - The root path within the container for capturing backups
+
 ### Restoring Backups
 
 Backups can be restored manually to either a remote or the default/local Docker context.
@@ -51,9 +56,9 @@ This Docker image supports the ability to schedule backups using CRON jobs that 
 
 Find below some relevant links.
 
-- **SSPAK**
+- **SSPak**
   - The official repository for the tool that this Docker image uses.
   - [GitHub Repository](https://github.com/silverstripe/sspak)
-- **Blog Post**
-  - An article I wrote explaining what this Docker image does, and how to use it.
-  - [Docker SilverStripe Backup](https://github.com/LoveDuckie/docker-silverstripe-backup)
+- **Blog**
+  - An article explaining what this Docker image does, and how to use it.
+  - [Docker SilverStripe Backup](https://lucshelton.com/projects/personal/silverstripe-tool-docker-backup/)

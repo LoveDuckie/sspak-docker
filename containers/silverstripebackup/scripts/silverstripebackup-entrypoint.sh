@@ -82,7 +82,7 @@ if ! check_installed_tools; then
 fi
 
 if ! check_silverstripe_variables; then
-	write_error "silverstripebackup-entrypoint" "silverstripe variables not defined"
+	write_error "silverstripebackup" "silverstripe variables not defined"
 	exit -1
 fi
 
@@ -122,7 +122,7 @@ if [ ! -d "$HOST_BACKUPS_PATH" ]; then
     write_info "silverstripebackup" "host backups path not found (\"$HOST_BACKUPS_PATH\"). creating."
     mkdir -p "$HOST_BACKUPS_PATH"
     if ! write_response "silverstripebackup" "create path \"$HOST_BACKUPS_PATH\""; then
-        write_error "silverstripebackup-entrypoint" "the host backups path is invalid or null"
+        write_error "silverstripebackup" "the host backups path is invalid or null"
         exit 10
     fi
 fi
