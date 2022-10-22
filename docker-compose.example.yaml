@@ -7,7 +7,7 @@ services:
     build: 
       context: '${BUILD_ROOT}' 
       dockerfile: '${BUILD_ROOT}/containers/sspak-docker/build/Dockerfile'
-      target: portfolio-sspak-docker-version
+      target: sspak-docker-version
       args:
         CUSTOM_BUILD_VERSION: '${BUILD_VERSION}'
     volumes:  

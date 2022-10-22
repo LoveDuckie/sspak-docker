@@ -59,15 +59,15 @@ RUN mkdir -p /scripts
 
 # BUILD VERSION: DEVELOPMENT
 
-FROM php-builder as portfolio-sspak-docker-development
+FROM php-builder as sspak-docker-development
 
 RUN apk add nano sudo
 
 # BUILD VERSION: PRODUCTION
 
-FROM php-builder as portfolio-sspak-docker-production
+FROM php-builder as sspak-docker-production
 
-FROM portfolio-sspak-docker-${CUSTOM_BUILD_VERSION} as portfolio-sspak-docker-version
+FROM sspak-docker-${CUSTOM_BUILD_VERSION} as sspak-docker-version
 
 COPY ./containers/sspak-docker/scripts/*.sh /scripts
 
