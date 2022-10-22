@@ -4,6 +4,13 @@ A Docker container image for capturing or restoring backups of Silverstripe inst
 
 [Read more about this repository here.](https://lucshelton.com/blog/backing-up-silverstripe-in-docker)
 
+## Run
+
+```bash
+#!/bin/bash
+docker run --rm -i portfolio/sspak-docker:development /bin/bash
+```
+
 ## Purpose
 
 Conveniently capture and restore backups of a [SilverStripe](https://silverstripe.org/) installation that are timestamped and kept organized at a path mounted inside of a container. This Docker image utilizes `sspak`, a command-line tool developed by the [SilverStripe](https://silverstripe.org/) team that can capture the contents of the database, and website's upload `/public/assets/Uploads` directory, so that it can be conveniently restored.

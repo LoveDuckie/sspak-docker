@@ -16,7 +16,7 @@ usage() {
 }
 
 while getopts ":c:h:b:eh?" opt; do
-    case $opt in        
+    case $opt in
         c)
             export SSPAK_COMMAND=$OPTARG
             write_info "sspak-docker" "command: \"$SSPAK_COMMAND\""
@@ -82,8 +82,8 @@ if ! check_installed_tools; then
 fi
 
 if ! check_silverstripe_variables; then
-	write_error "sspak-docker" "silverstripe variables not defined"
-	exit -1
+    write_error "sspak-docker" "silverstripe variables not defined"
+    exit -1
 fi
 
 if ! is_sspak_installed; then

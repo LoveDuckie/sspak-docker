@@ -1,9 +1,9 @@
 #!/bin/bash
 <<EOF
 
-   SSPAK \ Docker
+    SSPAK \ Docker
 
-
+    Entrypoint for running SSPAK in a Docker container.
 
 EOF
 CURRENT_SCRIPT_DIRECTORY=${CURRENT_SCRIPT_DIRECTORY:-$(dirname $(realpath $0))}
@@ -15,7 +15,7 @@ write_header
 
 usage() {
     write_info "sspak-docker" "usage - sspak-docker"
-    write_info "sspak-docker" "sspak-docker.sh [-c <target docker context>] [-h or -?]"
+    write_info "sspak-docker" "sspak-docker.sh [-c <docker context name>] [-e <configuration environment>] [-o <sspak command>] [-h or -?]"
     exit -1
 }
 
@@ -38,7 +38,7 @@ while getopts ':c:e:o:h?' opt; do
         ;;
         :)
             write_error "sspak-docker" "\"-${OPTARG}\" requires an argument"
-            usage
+            usages
         ;;
         *)
             write_error "sspak-docker" "\"-${OPTARG}\" was not recognised"
@@ -48,34 +48,28 @@ while getopts ':c:e:o:h?' opt; do
 done
 
 if [ -z "$SSPAK_COMMAND" ]; then
-   write_error "sspak-docker" "sspak command not defined (\"SSPAK_COMMAND\")"
-   exit 1
+    write_error "sspak-docker" "sspak command not defined (\"SSPAK_COMMAND\")"
+    exit 1
 fi
+
 if [ -z "$CONFIGURATION_ENVIRONMENT" ]; then
-   write_warning "sspak-docker" "configuration environment not defined. using \"development\" by default."
-   CONFIGURATION_ENVIRONMENT=development
+    write_warning "sspak-docker" "configuration environment not defined. using \"development\" by default."
+    CONFIGURATION_ENVIRONMENT=development
 fi
 
 if [ ! -z $DOCKER_CONTEXT_NAME ]; then
     write_warning "sspak-docker" "using docker context \"$DOCKER_CONTEXT_NAME\""
     DOCKER_CONTEXT_ARGS=" --context \"$DOCKER_CONTEXT_NAME\""
 fi
-#   t)
-#       export SITE_DOMAIN_NAME=$OPTARG
-#       write_info "sspak-docker" "site domain name: \"$SITE_DOMAIN_NAME\""
-#   ;;
-
-#   r)
-#       export SITES_PATH=$OPTARG
-#       write_info "sspak-docker" "sites path: \"$SITES_PATH\""
-#   ;;
 
 write_info "sspak-docker" "running sspak"
 CONFIGURATION_FILENAME=docker-compose.$CONFIGURATION_ENVIRONMENT.yaml
 export BACKUP_HOSTNAME=$HOSTNAME
 
 write_info "sspak-docker" "running sspak docker"
-docker-compose -f docker-compose.yaml -f $CONFIGURATION_FILENAME run --rm sspak-docker
+RUN_ARGS="docker-compose${DOCKER_CONTEXT_ARGS} -f docker-compose.yaml -f $CONFIGURATION_FILENAME run --rm sspak-docker"
+write_info "sspak-docker" "running: \"$RUN_ARGS\""
+$RUN_ARGS
 if ! write_response "sspak-docker" "run sspak docker: \"$SSPAK_COMMAND\""; then
     write_error "sspak-docker" "failed to run \"$SSPAK_COMMAND\""
     exit 1
