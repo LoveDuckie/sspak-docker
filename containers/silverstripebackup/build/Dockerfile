@@ -6,7 +6,7 @@ FROM php:7.4.23-cli-alpine as php-builder
 LABEL maintainer="Luc \"LoveDuckie\" Shelton <lucshelton@gmail.com>" \
       org.label-schema.schema-version="1.0" \
       org.label-schema.build-date=$CUSTOM_BUILD_DATE \ 
-      org.label-schema.name="loveduckie/silverstripebackup" \
+      org.label-schema.name="loveduckie/sspak-docker" \
       org.label-schema.url="https://www.lucshelton.com" \
       org.label-schema.description="Docker container for SSPAK tool" \
       org.label-schema.version=${CUSTOM_BUILD_VERSION}
@@ -59,19 +59,19 @@ RUN mkdir -p /scripts
 
 # BUILD VERSION: DEVELOPMENT
 
-FROM php-builder as portfolio-silverstripebackup-development
+FROM php-builder as portfolio-sspak-docker-development
 
 RUN apk add nano sudo
 
 # BUILD VERSION: PRODUCTION
 
-FROM php-builder as portfolio-silverstripebackup-production
+FROM php-builder as portfolio-sspak-docker-production
 
-FROM portfolio-silverstripebackup-${CUSTOM_BUILD_VERSION} as portfolio-silverstripebackup-version
+FROM portfolio-sspak-docker-${CUSTOM_BUILD_VERSION} as portfolio-sspak-docker-version
 
-COPY ./containers/silverstripebackup/scripts/*.sh /scripts
+COPY ./containers/sspak-docker/scripts/*.sh /scripts
 
 RUN mkdir -p /var/log/backups
 RUN chmod -R ug+rwx /scripts /var/log/backups
 
-ENTRYPOINT ["/scripts/silverstripebackup-entrypoint.sh"]
+ENTRYPOINT ["/scripts/sspak-docker-entrypoint.sh"]

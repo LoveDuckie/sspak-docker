@@ -62,12 +62,12 @@ if [ ! -z $DOCKER_CONTEXT_NAME ]; then
 fi
 #   t)
 #       export SITE_DOMAIN_NAME=$OPTARG
-#       write_info "silverstripebackup" "site domain name: \"$SITE_DOMAIN_NAME\""
+#       write_info "sspak-docker" "site domain name: \"$SITE_DOMAIN_NAME\""
 #   ;;
 
 #   r)
 #       export SITES_PATH=$OPTARG
-#       write_info "silverstripebackup" "sites path: \"$SITES_PATH\""
+#       write_info "sspak-docker" "sites path: \"$SITES_PATH\""
 #   ;;
 
 write_info "sspak-docker" "running sspak"

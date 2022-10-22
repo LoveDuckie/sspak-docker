@@ -1,13 +1,13 @@
 version: '3.9'
 
 services:
-  silverstripebackup:
-    container_name: '${SERVICE_NAME}-silverstripebackup'
+  sspak-docker:
+    container_name: '${SERVICE_NAME}-sspak-docker'
     image: ${REMOTE_REGISTRY_HOST}portfolio/sspak-docker:${BUILD_VERSION}
     build: 
       context: '${BUILD_ROOT}' 
-      dockerfile: '${BUILD_ROOT}/containers/silverstripebackup/build/Dockerfile'
-      target: portfolio-silverstripebackup-version
+      dockerfile: '${BUILD_ROOT}/containers/sspak-docker/build/Dockerfile'
+      target: portfolio-sspak-docker-version
       args:
         CUSTOM_BUILD_VERSION: '${BUILD_VERSION}'
     volumes:  

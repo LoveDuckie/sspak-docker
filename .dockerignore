@@ -6,7 +6,7 @@
 !containers/*/build
 !containers/nginx/pages
 !containers/php
-!containers/silverstripebackup
+!containers/sspak-docker
 !containers/databasebackup
 !source/sites
 data
